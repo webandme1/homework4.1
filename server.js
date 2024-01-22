@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = 8070;
 
 // Define the endpoints
 app.get('/profile', (req, res) => {
@@ -8,7 +8,20 @@ app.get('/profile', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
-    res.send('This is the /products page!');
+   // res.send('This is the /products page!');
+// List of products
+const products = ['Milk', 'Eggs', 'Cheese', 'Pork', 'Shrimp', 'Chicken'];
+
+// Get the search query parameter
+const search = req.query.search;
+
+// Check if the product is in the list
+if (search && products.includes(search.charAt(0).toUpperCase() + search.slice(1).toLowerCase())) {
+    res.send(`Product "${search}" found.`);
+} else {
+    res.send(`Product "${search}" not found.`);
+}
+
 });
 
 app.get('/cart', (req, res) => {
